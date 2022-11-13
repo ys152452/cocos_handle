@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, screen, UITransform } from 'cc';
+import { _decorator, Component, Node, screen, UITransform, director } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('webcome')
@@ -17,6 +17,7 @@ export class webcome extends Component {
     start() {
         console.log(this.Bg)
         this.initPostion();
+        this.addEventHandler();
     }
     initPostion() {
         const { x = 720, y = 1280 } = screen.windowSize;
@@ -29,7 +30,11 @@ export class webcome extends Component {
         this.StartBtn.setPosition(0, paddingBottom);
         this.Rules!.getComponent(UITransform)!.height = y - Math.ceil(y * 0.28) - titleBoxHeight - 200;
     }
-
+    addEventHandler(){
+        this.StartBtn.on(Node.EventType.TOUCH_END, (event) => {
+            director.loadScene('game')
+        })
+    }
     update(deltaTime: number) {
 
     }
